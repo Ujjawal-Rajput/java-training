@@ -49,3 +49,5 @@ thread->jre->jvm->main->sum1->sum2->sum3->return 0
 show call stack on paper - hw
 5 4 3 2 1 using recursion
 
+====================================================================================================
+formula for rotation [right-part * 10^(l-r)] + left-part
