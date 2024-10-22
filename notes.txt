@@ -1,0 +1,51 @@
+4/10/24 friday : 
+work on idea which solves a problem. examples- startsups, flipkart, realtime note pad.
+valid words leetcode problem
+bill structure using locale.
+
+===============================================================
+9/10/24 wednesday : 
+locale revisiom. IMP : locale.getDefault(); default it is en_US.
+factorial program
+solve java locale questions on hacker rank = 13 questions minimum.
+power of n
+isarmstrong
+
+singleton = a class can only have single object
+if there are 2 classes without public then, 2 .class files will generate along with their individual class names.
+objects always store at heap memory.
+initially, objects will have null for strings, 0 for integers when just created.
+class variables are called instance variables
+this keyword in classes, this = current calling object's name
+objects of a classes store their values on different memory locations. (independent of each other)
+use "private/ protected" keyword before constructor to prevent more than one object instantiation.
+make a different function inside class to check whether there is already a object present.
+    eg. static car objcreate(name, doorcount){
+        if (obj == null){
+            obj = new car(name, doorcount);
+        }
+        return obj;
+    }
+we can't create object using new keyword because constructor is private/ protected.
+numberformat and date -> follow singleton so that no one can change things in between -> like dollar to rupees.
+
+======================================================================================================
+15/10/24 wednesday : 
+.env = contain secret paths, tokens,
+jwt
+resource bundle
+bill using resource bundle 
+star patterns
+bank system - hw
+6 patterns - hw
+
+======================================================================================================
+18/10/24 friday : 
+stack with sum1, sum2, sum3 example
+gave patterns(using recursion) in hw
+add resource bundle in bank system
+recursion = base case, small problem, increase/ decrease, call stack;
+thread->jre->jvm->main->sum1->sum2->sum3->return 0
+show call stack on paper - hw
+5 4 3 2 1 using recursion
+
