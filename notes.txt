@@ -57,6 +57,6 @@ run loop till it twice becomes 6174 or difference becomes itself.
 
 
 automorphic, n=5, n^2 = 25, last digit is common.
-n=19, 1^2 + 9^2 = 82 = 8^2 + 2^2 = 68, ans so on, if gets 1, print answer. condition : when becomes 1 && len(19) + 1 < getnumber -> stop
+n=19, 1^2 + 9^2 = 82 = 8^2 + 2^2 = 68, and so on, if gets 1, print answer. condition : when becomes 1 && len(19) + 1 < getnumber -> stop
 KEITH -> n=197 -> 1,9,7,17,33,57,107,197 -> if (getnumber == n) yes
 condition : getnumber should not exceed && 
