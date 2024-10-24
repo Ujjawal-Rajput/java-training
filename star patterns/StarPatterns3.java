@@ -1,5 +1,16 @@
 public class StarPatterns3{
 
+    static void box(int i, int j){
+        if (i==0) return;
+
+        for(int k=0; k<j; k++){
+            System.out.print("*");
+        }
+
+        System.out.println();
+        box(i-1,j);
+    }
+
     static void triangles1(int n, int copy, boolean flag){
         if (n==0 && flag == false){
             n=1;
@@ -123,6 +134,8 @@ public class StarPatterns3{
 
     //using recursion
     public static void main(String[] args) {
+        box(4,4);
+        System.out.println("====================================================");
         triangles1(5,5,false);
         System.out.println("====================================================");
         plus(6,0);

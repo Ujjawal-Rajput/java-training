@@ -60,3 +60,9 @@ automorphic, n=5, n^2 = 25, last digit is common.
 n=19, 1^2 + 9^2 = 82 = 8^2 + 2^2 = 68, and so on, if gets 1, print answer. condition : when becomes 1 && len(19) + 1 < getnumber -> stop
 KEITH -> n=197 -> 1,9,7,17,33,57,107,197 -> if (getnumber == n) yes
 condition : getnumber should not exceed && 
+
+============================================================================================
+SPRING BOOT INTRO
+1. frame and panel will always be there in java application
+2. frame : window , panel: content inside that window
+3. 
