@@ -65,4 +65,17 @@ condition : getnumber should not exceed &&
 SPRING BOOT INTRO
 1. frame and panel will always be there in java application
 2. frame : window , panel: content inside that window
-3. 
+
+
+============================================================================================
+1. add image in panel 
+2. bounce the image from (0,0) to (500, 500)
+3. bounce image when collide with frame-wall.
+
+============================================================================================
+25/oct/2024
+class missed.
+
+============================================================================================
+
+
