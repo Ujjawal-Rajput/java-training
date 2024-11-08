@@ -79,10 +79,10 @@ class missed.
 ============================================================================================
 8/nov/2024
 1. instance variable are the variables that are initialized inside a class.
-2. DRY
+2. DRY - DON'T REPEAT YOURSELF
 3. make complete game (will check on 13 nov/ wednesday) - write collision logic, different speeds, make array for storing car objects, use resource bundle for values for storing width and height.
-4. make the code clean becaue anybody can modify our code. eg. setVisibility(false),
+4. make the code clean because anybody can modify our code. eg. setVisibility(false),
 5. dont use chatgpt
-6. do those 4 questions
+6. do those 4 questions DONE
 
 
