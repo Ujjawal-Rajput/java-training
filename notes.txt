@@ -50,14 +50,14 @@ show call stack on paper - hw
 5 4 3 2 1 using recursion
 
 ====================================================================================================
-formula for rotation [right-part * 10^(l-r)] + left-part
+formula for rotation [right-part * 10^(l-r)] + left-part 
 
 given a number, sort the number in ascending and descending, if (descending-ascending)*2 = 6174, print KAP'S satisfied
-run loop till it twice becomes 6174 or difference becomes itself.
+run loop till 2*output's becomes 6174 or difference becomes itself. DONE
 
 
-automorphic, n=5, n^2 = 25, last digit is common.
-n=19, 1^2 + 9^2 = 82 = 8^2 + 2^2 = 68, and so on, if gets 1, print answer. condition : when becomes 1 && len(19) + 1 < getnumber -> stop
+automorphic, n=5, n^2 = 25, last digit is common. DONE
+n=19, 1^2 + 9^2 = 82 = 8^2 + 2^2 = 68, and so on, if gets 1, print answer. condition : when becomes 1 && len(19) + 1 < getnumber -> stop = happy number DONE
 KEITH -> n=197 -> 1,9,7,17,33,57,107,197 -> if (getnumber == n) yes
 condition : getnumber should not exceed && 
 
@@ -77,5 +77,12 @@ SPRING BOOT INTRO
 class missed.
 
 ============================================================================================
+8/nov/2024
+1. instance variable are the variables that are initialized inside a class.
+2. DRY
+3. make complete game (will check on 13 nov/ wednesday) - write collision logic, different speeds, make array for storing car objects, use resource bundle for values for storing width and height.
+4. make the code clean becaue anybody can modify our code. eg. setVisibility(false),
+5. dont use chatgpt
+6. do those 4 questions
 
 
