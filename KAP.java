@@ -6,6 +6,7 @@ public class KAP {
         int asc;
         int desc;
 
+        int count = 0;
         while (num != 6174) {
             asc = getAscending(num);
             desc = getDescending(num);
@@ -17,6 +18,8 @@ public class KAP {
                 System.out.println(num + " is half of 6174");
                 break;
             }
+            if (count > 1000) break;
+            count++;
         }
     }
 
