@@ -10,41 +10,30 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
     Locale locale =  Locale.forLanguageTag("en-US");
     ResourceBundle rb = ResourceBundle.getBundle("ResourceBundle", locale);
     private Timer timer;
-    private int playerX = Integer.parseInt(rb.getString("PLAYER-X")); //250-30; // Start position of my car
+    private int playerX = Integer.parseInt(rb.getString("PLAYER-X")); //250-30; // initial position of my car
     private int playerY = Integer.parseInt(rb.getString("PLAYER-Y")); //500;
     private ArrayList<Rectangle> roadLines;
     private ArrayList<OpponentCar> opponentCars;
-    private Image playerCar, opponentCar1, opponentCar2,opponentCar3;
-    private boolean gameOver = false;
+    private ArrayList<String> opponentCarFileName; // 3 opponent cars
+    private Image playerCar;
+    private Image fire;
+    // private Image opponentCarImages[] = new Image[3];
     private int carWidth = Integer.parseInt(rb.getString("CAR-WIDTH")), carHeight = Integer.parseInt(rb.getString("CAR-HEIGHT"));//90, 180;
-    private Image opponentCarImages[] = new Image[3];
+    private boolean gameOver = false;
     private int score = 0;
     private int Hscore = 0;
+    private OpponentCar collidedWith;
 
 
     public AppPanel() {
         // setPreferredSize(new Dimension(400, 600));
         setBackground(Color.BLACK);
 
-        // load images
-        playerCar = new ImageIcon("car.png").getImage();
-        opponentCar1 = new ImageIcon("opponent_car1.png").getImage();
-        opponentCar2 = new ImageIcon("opponent_car2.png").getImage();
-        opponentCar3 = new ImageIcon("opponent_car3.png").getImage();
-        
-        opponentCarImages[0] = opponentCar1;
-        opponentCarImages[1] = opponentCar2;
-        opponentCarImages[2] = opponentCar3;
-
-
+        opponentCarFileName = new ArrayList<>();
+        addImagesFileNames();
 
         roadLines = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            // left lane divider
-            roadLines.add(new Rectangle(166, i * 100, 30, 70)); 
-            // right lane divider
-            roadLines.add(new Rectangle(332, i * 100, 30, 70)); 
-        }
+        makeRoadLines();
 
         // initialize opponent cars
         opponentCars = new ArrayList<>();
@@ -54,6 +43,25 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
         timer.start();
         addKeyListener(this);
         setFocusable(true);
+    }
+
+    private void addImagesFileNames(){
+        // load images
+        playerCar = new ImageIcon("car.png").getImage();
+        fire = new ImageIcon("fire.gif").getImage();
+
+        opponentCarFileName.add("opponent_car1.png");
+        opponentCarFileName.add("opponent_car2.png");
+        opponentCarFileName.add("opponent_car3.png");
+    }
+
+    private void makeRoadLines(){
+        for (int i = 0; i < 10; i++) {
+            // left lane 
+            roadLines.add(new Rectangle(166, i * 100, 30, 70)); 
+            // right lane 
+            roadLines.add(new Rectangle(332, i * 100, 30, 70)); 
+        }
     }
 
     private int getRandomSpeed(){
@@ -66,25 +74,24 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
         return rand.nextInt(3);  // (0, 1, or 2)
     }
 
-    private int getRamdom_X_Coordinates(){
+    private int getRandom_X_Coordinates(){
         return 166 * getRandomLane() + (83-30); // minus opponent car width
     }
 
-    private int getRamdom_Y_Coordinates(){
-        Random rand = new Random();
-        return -rand.nextInt(500); // minus opponent car width
+    private int getRandom_Y_Coordinates(){
+        // Random rand = new Random();
+        return -500; // minus opponent car width
     }
 
 
     private void createOpponentCars() {
         opponentCars.clear();
-        int lastY = 0;
-
-        for (int i = 0; i < 3; i++) {
-            int y = getRamdom_Y_Coordinates();
-            if (Math.abs(lastY - y) < carHeight+50) y = y-carHeight-50;
-            lastY = y;
-            opponentCars.add(new OpponentCar(getRamdom_X_Coordinates(),y, carWidth, carHeight, getRandomSpeed(), opponentCarImages[i]));
+        // int lastY = 0;
+        for (int i = 0; i < 2; i++) {
+            int y = getRandom_Y_Coordinates();
+            // if (Math.abs(lastY - y) < carHeight+50) y = y-carHeight-50; // giving space to the car to move safely without collision.
+            // lastY = y;
+            opponentCars.add(new OpponentCar(getRandom_X_Coordinates(),y, carWidth, carHeight, getRandomSpeed(), opponentCarFileName.get(i)));
         }
     }
 
@@ -92,62 +99,74 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
     public void actionPerformed(ActionEvent e) {
         if (gameOver) return;
 
-        // move road lines downward
-        for (Rectangle line : roadLines) {
-            line.y += 30;
-            if (line.y > getHeight()) {
-                line.y = -50;
-            }
-        }
-
-        // move opponent cars downward by their speed
-        for (OpponentCar car : opponentCars) {
-            car.moveDown();
-            if (car.getRectangle().y > getHeight()) { // will true when opponent car reaches bottom
-                int lane = new Random().nextInt(3);
-                car.getRectangle().x = 166 * lane + (83-30);
-                car.getRectangle().y = -500;
-                car.setSpeed(new Random().nextInt(20) + 5);
-            }
-        }
-
-        // collision
-        Rectangle playerRect = new Rectangle(playerX, playerY, carWidth, carHeight);
-        for (OpponentCar car : opponentCars) {
-            // System.out.println(car.getRectangle().x + " : " + playerRect.x);
-            // if (playerRect.intersects(car.getRectangle())) {
-            if (car.getRectangle().y + carHeight >= playerRect.y && (car.getRectangle().x - 10 < playerRect.x && car.getRectangle().x + 10 > playerRect.x)) {
-                gameOver = true;
-                if (score > Hscore) Hscore = score;
-                timer.stop();
-                // JOptionPane.showMessageDialog(this, "Game Over!");
-            }
-
-            // for (int a=0; a<3; a++) {
-            // OpponentCar opp1 = opponentCars.get(0);
-            // OpponentCar opp2 = opponentCars.get(1);
-            // OpponentCar opp3 = opponentCars.get(2);
-            // if (playerY < opp1.getRectangle().y && playerY < opp2.getRectangle().y && playerY < opp3.getRectangle().y) score += 3;
-            
-
-        }
+        // here i am just updating the positions of the objects but the changes will be reflected when i repaint them.
+        moveRoadLines();
+        moveOpponentCars();
+        checkCollision();
         updateScore();
 
         repaint();
     }
 
+
+
+    private void moveRoadLines(){
+        // move road lines downward
+        for (Rectangle line : roadLines) {
+            line.y += 30;
+            if (line.y > getHeight()) {
+                line.y = -40;
+            }
+        }
+    }
+    private void moveOpponentCars(){
+        // move opponent cars downward by their speed
+        for (OpponentCar car : opponentCars) {
+            car.moveDown();
+            if (car.getRectangle().y > getHeight()) { // will true when opponent car reaches bottom
+                car.getRectangle().x = getRandom_X_Coordinates();
+                car.getRectangle().y = getRandom_Y_Coordinates();
+                car.setSpeed(getRandomSpeed());
+            }
+        }
+    }
+
+    private void checkCollision(){
+        // collision logic
+        Rectangle playerRect = new Rectangle(playerX, playerY, carWidth, carHeight);
+        for (OpponentCar car : opponentCars) {
+            // System.out.println(car.getRectangle().x + " : " + playerRect.x);
+            // if (playerRect.intersects(car.getRectangle())) {
+
+            // if (car.getRectangle().y + carHeight >= playerRect.y && (car.getRectangle().x - 10 < playerRect.x && car.getRectangle().x + 10 > playerRect.x)) {
+            boolean xCollision = playerX < car.getRectangle().x + carWidth && playerX + carWidth > car.getRectangle().x;
+            boolean yCollision = playerY < car.getRectangle().y + carHeight && playerY + carHeight > car.getRectangle().y;
+            if (xCollision && yCollision) {
+                gameOver = true;
+                collidedWith = car;
+                if (score > Hscore) Hscore = score;
+                timer.stop();
+                // JOptionPane.showMessageDialog(this, "Game Over!");
+            }
+            // for (int a=0; a<3; a++) {
+            // OpponentCar opp1 = opponentCars.get(0);
+            // OpponentCar opp2 = opponentCars.get(1);
+            // OpponentCar opp3 = opponentCars.get(2);
+            // if (playerY < opp1.getRectangle().y && playerY < opp2.getRectangle().y && playerY < opp3.getRectangle().y) score += 3;
+        }
+    }
+
     private void updateScore() {
         boolean allCrossed = true;
         
-        for (OpponentCar opponentCar : opponentCars) { // Assuming each Car has an 'y' position
-            if (opponentCar.getRectangle().y >= playerY) { // Check if player’s car hasn’t passed an opponent car
+        for (OpponentCar opponentCar : opponentCars) { // check if player’s car has passed all opponent cars
+            if (opponentCar.getRectangle().y >= playerY) { 
                 allCrossed = false;
                 break;
             }
-        }
-        
+        }      
         if (allCrossed) {
-            score += 3; // Increment score when all cars are successfully crossed
+            score += 3; 
         }
         if (score > Hscore) Hscore = score;
     }
@@ -179,11 +198,17 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
             g.drawImage(car.getCar(), rect.x, rect.y, rect.width, rect.height, this);          
         }
 
-        // Draw the score in the top-right corner
+        // draw the score
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score, 10, 30);
         g.drawString("HScore: " + Hscore, 10, 60);
+
+        // Draw fire if collision is detected
+        if (gameOver) {
+            g.drawImage(fire, playerX - 15, playerY, 120, 140, this);
+            g.drawImage(fire, collidedWith.getRectangle().x - 15, collidedWith.getRectangle().y, 120, 140, this);
+        }
     }
 
     @Override
@@ -191,22 +216,22 @@ public class AppPanel extends JPanel implements ActionListener, KeyListener {
         int key = e.getKeyCode();        
 
         if (key == KeyEvent.VK_LEFT && (playerX-166) >= 53) {
-            playerX -= 166; // Move to the left lane
+            playerX -= 166; // move to the left lane
         } 
         else if (key == KeyEvent.VK_LEFT && (playerX-166) <= 53) {
-            playerX = 387; // Move to the left lane
+            playerX = 387; // move to the left lane
         } 
         else if (key == KeyEvent.VK_RIGHT && (playerX+166) <= 387) {
-            playerX += 166; // Move to the right lane
+            playerX += 166; // move to the right lane
         } 
         else if (key == KeyEvent.VK_RIGHT && (playerX+166) >= 387) {
-            playerX = 53; // Move to the right lane
+            playerX = 53; // move to the right lane
         } 
         else if (key == KeyEvent.VK_UP && playerY > 0) {
-            playerY -= 20; // Move forward 
+            playerY -= 20; // move forward 
         } 
         else if (key == KeyEvent.VK_DOWN && playerY < 900) {
-            playerY += 20; // Move backward
+            playerY += 20; // move backward
         }
 
 
