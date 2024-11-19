@@ -1,4 +1,5 @@
 https://github.com/HarshAgarwal1102/Street_Fighter
 
-run :
-java -jar Street_Fighter_Demo.jar
+run in terminal: java -jar Street_Fighter_Demo.jar
+or
+double click Street_Fighter_Demo.jar file
