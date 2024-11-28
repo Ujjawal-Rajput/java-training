@@ -85,4 +85,23 @@ class missed.
 5. dont use chatgpt
 6. do those 4 questions DONE
 
+============================================================================================
+last class content:
+1. crud opertions on array with logging array content in .txt file.
+2. leetcode question isSubsequence 392
 
+============================================================================================
+27/nov/2024
+1. solve leetcode 283
+2. obj.toString() = it'll return "className@hashCode", can overRide by defining it explicitly in class
+3. toString() always called bts
+4. obj1 == obj2 false (different reference location of objects)
+5. obj1.name == obj2.name  where name = "abcd" => false (different reference location of strings)
+6. 2 main functions can be used in a program => through overloading
+7. polymorphism => Animal a = new Animal();
+                   Animal b = new Dog();
+8. polymorphism was used in paintComponent function where it calls super.paintComponent(pen).
+9. leetcode 121
+
+
+my classmaker score : 81.something %
