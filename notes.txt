@@ -92,7 +92,7 @@ last class content:
 
 ============================================================================================
 27/nov/2024
-1. solve leetcode 283
+1. solve leetcode 283 = Move zeros at the end
 2. obj.toString() = it'll return "className@hashCode", can overRide by defining it explicitly in class
 3. toString() always called bts
 4. obj1 == obj2 false (different reference location of objects)
@@ -101,7 +101,16 @@ last class content:
 7. polymorphism => Animal a = new Animal();
                    Animal b = new Dog();
 8. polymorphism was used in paintComponent function where it calls super.paintComponent(pen).
-9. leetcode 121
+9. leetcode 121 = Best Time to Buy and Sell Stock
+10. my classmaker score : 81.something %
 
-
-my classmaker score : 81.something %
+============================================================================================
+29/nov/2024
+1. 28
+2. 125
+3. 680
+4. 1903
+5. hacker rank
+============================================================================================
+1. flappy bird fly effect from spriteSheet.
+2. our task : add pipes in panel using spriteSheet.
